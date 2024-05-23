@@ -11,6 +11,7 @@ export class BeltGuard implements CanActivate {
     // validate the request
     const hasBlackBelt = request.headers.belt === 'black'; // true or false (if the belt is black or not
 
-    return hasBlackBelt; // return true to allow access, false to deny
+    // return hasBlackBelt; // return true to allow access, false to deny
+    return true; // return true to allow access, false to deny
   }
 }

@@ -16,14 +16,17 @@ import { CreateNinjaDto } from './dto/create-ninja.dto';
 import { UpdateNinjaDto } from './dto/update-ninja.dto';
 import { NinjasService } from './ninjas.service';
 import { BeltGuard } from 'src/belt/belt.guard';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags("ninjas")
 @Controller('ninjas')
 @UseGuards(BeltGuard) // to protect all routes in this controller (all routes in this file)
 export class NinjasController {
 	constructor(private readonly ninjasService: NinjasService) { }
 
 	// GET /ninjas --> get all ninjas []
-	@Get()
+	@Get() // here we can define path like @Get('all') and the path will be /ninjas/all
 	getNinjas(@Query("weapon") weapon: "Hadouken" | "Shoryuken") {
 		return this.ninjasService.getNinjas(weapon);
 	}
@@ -42,6 +45,7 @@ export class NinjasController {
 	}
 
 	// // POST /ninjas --> create a ninja
+	@ApiCreatedResponse({ type: CreateNinjaDto })
 	@Post()
 	// @UseGuards(BeltGuard) to protect only this route
 
